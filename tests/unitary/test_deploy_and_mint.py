@@ -7,7 +7,6 @@ from brownie import (
     network
 )
 
-
     
 def test_mint_article(test_deploy_contract, set_URI, load_owner):
 
