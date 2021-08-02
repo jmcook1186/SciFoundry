@@ -1,7 +1,7 @@
 import pytest
 
 from brownie import (
-    SciPaper,
+    SciFactory,
     Contract,
     accounts,
     network,
@@ -15,6 +15,11 @@ def checkNetwork():
 def load_owner():
     owner = accounts.load('main')
     return owner
+
+@pytest.fixture(scope='module')
+def load_account2():
+    account2 = accounts.load('account2')
+    return account2
 
 @pytest.fixture
 def set_URI():
