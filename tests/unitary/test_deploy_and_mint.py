@@ -44,7 +44,6 @@ def test_safeTransfer(test_deploy_contract, load_owner, load_account2, N_article
 
     assert owners_NFTs == vals
     assert account2_NFTs[0] == transfer_idx
-    
 
 
     return
