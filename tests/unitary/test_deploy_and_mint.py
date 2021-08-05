@@ -49,3 +49,11 @@ def test_safeTransfer(test_deploy_contract, load_owner, load_account2, N_article
     return
 
 
+def test_citation():
+    pass
+
+def test_citation_burn():
+    pass
+
+def test
+

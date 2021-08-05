@@ -22,10 +22,6 @@ def load_account2():
     return account2
 
 @pytest.fixture
-def set_URI():
-    return "https://raw.githubusercontent.com/jmcook1186/jmcook1186.github.io/main/Data/NFT_metadata.json"
-
-@pytest.fixture
 def test_deploy_contract(checkNetwork, load_owner):
     
     if checkNetwork == 'kovan':

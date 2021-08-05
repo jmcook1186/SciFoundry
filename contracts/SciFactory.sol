@@ -1,4 +1,3 @@
-
 pragma solidity ^0.6.6;
 
 import '@openzeppelin/contracts/token/ERC721/ERC721.sol';
@@ -28,7 +27,7 @@ contract SciFactory is ERC721 {
   increments tokenCount by 1
   
   */
-  function mint(address minter) external onlyOwner returns(uint256) {
+  function mint(address minter, uint256 [] memory _citedIDs) external onlyOwner returns(uint256) {
 
     tokenID = tokenCount;
     addressTotokenID[msg.sender].push(tokenID);
@@ -36,10 +35,28 @@ contract SciFactory is ERC721 {
     _safeMint(minter, tokenID);
     setURI();
     tokenCount+=1;
+    cite_mint(_citedIDs);
     
     return (tokenID);
   }
   
+
+  /**
+  @dev
+  Function is called during minting of new NFT
+  Takes a reference list of tokenIDs that are cited in the newly minted paper
+  and increments the citation counter of each of those previously published NFTs
+  by 1
+   */
+  function cite_mint(uint256[] memory _citedIDs) internal onlyOwner returns(uint256){
+
+    for(uint i =0; i<_citedIDs.length; i++){
+      uint256 _tokenID = _citedIDs[i];
+      cite(_tokenID);
+    }
+
+  }
+
 
   /**
   @dev
@@ -140,16 +157,28 @@ contract SciFactory is ERC721 {
   the pdf is actually freely available by downloading from the IPFS link
   which is provided on the NFT's OpenSea page. However, when other articles
   are minted as PDFs they "borrow" this one if they cite it.
+  
+  In most cases this function is called by cite_mint, but it is also useful to
+  have an alternative so that citations from pre-SciFactory days can be included
+  and to provides devs with mechanism for correcting user errors in initial mint
+  
    */
   function cite (uint256 _tokenID) public {
 
+    require(_isApprovedOrOwner(msg.sender,_tokenID));
     citationCounter[_tokenID]+=1;
 
   }
 
 
-  function burnCitations (uint256 _tokenID) public {
 
+  /**
+  @dev
+  burn citations exists to adjust the citation count in
+  case a citing paper is retracted or some other error occurs
+   */
+  function burnCitations (uint256 _tokenID) public {
+    require(_isApprovedOrOwner(msg.sender,_tokenID));
     citationCounter[_tokenID]-=1;
 
   }
