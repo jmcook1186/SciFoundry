@@ -10,12 +10,14 @@ contract SciFoundry is ERC721 {
   mapping(address => uint256[]) addressTotokenID;
   mapping(uint256 => string) public tokenIDToURI;
   mapping(uint256 => uint256) public citationCounter;
+  mapping(uint256 => uint256) public trustScore;
+  mapping(uint256 => uint256) public nReviews;
+  mapping(uint256 => string[]) public reviewLinks;
 
   constructor() public ERC721('dArticle', 'dART') {
     owner = msg.sender;
     tokenCount = 0;
   }
-
 
 
   /** 
@@ -171,7 +173,6 @@ contract SciFoundry is ERC721 {
   }
 
 
-
   /**
   @dev
   burn citations exists to adjust the citation count in
@@ -182,6 +183,26 @@ contract SciFoundry is ERC721 {
     citationCounter[_tokenID]-=1;
 
   }
+
+  /**
+  @dev
+  reviewer submits the tokenID of the paper they are reviewing, the score they
+  wish to give it, and a link to comments stored on ipfs (https in current dev version).
+  Function updates these scores in mapping
+   */
+  function reviewArticle (uint256 _tokenID, uint256 _score, string memory _link) public{
+
+    nReviews[_tokenID] +=1;
+    uint256 oldTrustScore = trustScore[_tokenID];
+    uint256 newTrustScore = oldTrustScore + _score;
+    trustScore[_tokenID]=newTrustScore/nReviews[_tokenID];
+    reviewLinks[_tokenID].push(_link);
+
+  }
+
+
+
+
 
   /**
   @dev

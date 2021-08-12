@@ -1,12 +1,12 @@
 # Sci Foundry
-SciFounry is a proof of concept minimum viable product for decentralised science publishing using Ethereum and NFTs.
+SciFoundry is a proof of concept minimum viable product for decentralised science publishing using Ethereum and NFTs.
 Initial aim is to develop nearly-free, transparent, decentralised science article publishing system that tracks article/user metrics by minting dynamic NFTs.
 
 Current functionality:
-	user writes article and mints it as NFT
-	NFT visible on OpenSea with image and properties
-	NFT tracks citation metrics
-	full paper downloadable to anyone by visiting the external_url in NFT metadata
+	- user writes article and mints it as NFT
+	- NFT visible on OpenSea with image and properties
+	- NFT tracks citation metrics
+	- full paper downloadable to anyone by visiting the external_url in NFT metadata
 
 # TODOs
 
