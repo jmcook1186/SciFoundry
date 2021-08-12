@@ -192,6 +192,18 @@ contract SciFoundry is ERC721 {
    */
   function reviewArticle (uint256 _tokenID, uint256 _score, string memory _link) public{
 
+    // check score is between 1-99
+    require(_score <100 || _score >0);
+    
+    // check user is not reviewing their own paper
+    if (addressTotokenID[msg.sender].length >0){
+
+      for (uint i = 0; i<addressTotokenID[msg.sender].length-1; i++){
+        require(addressTotokenID[msg.sender][i] != _tokenID, "author cannot review their own article");
+      }
+      
+    }
+
     nReviews[_tokenID] +=1;
     uint256 oldTrustScore = trustScore[_tokenID];
     uint256 newTrustScore = oldTrustScore + _score;
@@ -199,9 +211,6 @@ contract SciFoundry is ERC721 {
     reviewLinks[_tokenID].push(_link);
 
   }
-
-
-
 
 
   /**
