@@ -1,4 +1,4 @@
-from brownie import SciPaper, network, accounts, config
+from brownie import SciFoundry, network, accounts, config
 
 
 
@@ -6,7 +6,7 @@ def deploy(contract_owner):
     
     print("ACTIVE NETWORK: {}".format(network.show_active()))
     
-    ArticleFactory = SciPaper.deploy({'from':contract_owner})
+    ArticleFactory = SciFoundry.deploy({'from':contract_owner})
     
     contract_address = ArticleFactory.address
     print("Article contract successfully deployed to {}".format(contract_address))

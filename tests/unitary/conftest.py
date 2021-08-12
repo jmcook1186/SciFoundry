@@ -1,7 +1,7 @@
 import pytest
 
 from brownie import (
-    SciFactory,
+    SciFoundry,
     Contract,
     accounts,
     network,
@@ -28,7 +28,7 @@ def test_deploy_contract(checkNetwork, load_owner):
         return Contract(deployed_address)
     
     elif checkNetwork == 'development':
-    	return SciFactory.deploy({'from':load_owner})
+    	return SciFoundry.deploy({'from':load_owner})
     	
 @pytest.fixture
 def N_articles():
