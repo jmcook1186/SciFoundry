@@ -11,11 +11,12 @@ Current functionality:
 # TODOs
 
 1. find way to share ownership of NFT between multiple accounts
-2. build front end that queries citations from contract view func and updates NFT metadata
-3. build proper tests
-4. NFT URI should link to IPFS not https
-5. consider contract owner being secndary contract that mints on payment of DAI
-6. deposit accumulated DAI into aave lending pool to generate profit
+2. enable submission of reviews and calculation of article-level trust score
+3. build front end that queries citations and trust score from contract view func and updates NFT metadata
+4. build proper tests
+5. NFT URI should link to IPFS not https
+6. consider contract owner being secndary contract that mints on payment of DAI
+7. deposit accumulated DAI into aave lending pool to generate profit
 
 
 # Status
