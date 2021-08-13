@@ -53,7 +53,7 @@ def update_metadata(foundry, baseURI, token_ID):
     
     with open(str(baseURI+localURI), 'w') as json_out_file:
 
-        json.dump(data, json_out_file)
+        json.dump(data, json_out_file, indent = 4)
 
 
     return changes ,localURI
