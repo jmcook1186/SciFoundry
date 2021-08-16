@@ -90,7 +90,7 @@ commit_message = "update NFT metadata due to change in on-chain metrics"
 # function calls
 owner= load_owner()
 foundry = get_contract()
-changes = update_metadata(foundry, baseURI, token_ID)
+changes ,localURI = update_metadata(foundry, baseURI, token_ID)
 
 if changes>0: #only if the file has changed
     commit_and_push(localURI, commit_message)

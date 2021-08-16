@@ -13,6 +13,7 @@ contract SciFoundry is ERC721 {
   mapping(uint256 => uint256) public trustScore;
   mapping(uint256 => uint256) public nReviews;
   mapping(uint256 => string[]) public reviewLinks;
+  mapping(address => uint256) public addressToUserScore;
 
   constructor() public ERC721('dArticle', 'dART') {
     owner = msg.sender;
@@ -32,7 +33,8 @@ contract SciFoundry is ERC721 {
   function mint(address minter, uint256 [] memory _citedIDs) external onlyOwner returns(uint256) {
 
     tokenID = tokenCount;
-    addressTotokenID[msg.sender].push(tokenID);
+    addressTotokenID[minter].push(tokenID);
+    addressToUserScore[minter] = 0;
     citationCounter[tokenID]=0;
     _safeMint(minter, tokenID);
     setURI();
@@ -209,6 +211,7 @@ contract SciFoundry is ERC721 {
     uint256 newTrustScore = oldTrustScore + _score;
     trustScore[_tokenID]=newTrustScore/nReviews[_tokenID];
     reviewLinks[_tokenID].push(_link);
+    
 
   }
 
@@ -220,6 +223,34 @@ contract SciFoundry is ERC721 {
    */
   function viewCitations(uint256 _tokenID) public view returns(uint256){
     return citationCounter[_tokenID]; 
+  }
+
+
+  /**
+  @dev
+  calculates a user's overall score from the trust scores of their NFTs
+   */
+  function calculateUserScore(address _user) public {
+
+    uint256 ScoreCollector = 0;
+
+    if (addressTotokenID[_user].length >0){
+
+      for (uint i = 0; i<addressTotokenID[_user].length-1; i++){
+        ScoreCollector+=trustScore[i]; 
+      }
+
+      uint256 _userScore = ScoreCollector/addressTotokenID[_user].length;
+      addressToUserScore[_user] = _userScore;
+      
+    }
+
+  }
+
+
+  function viewUserScore(address _user) public view returns (uint256){
+
+    return addressToUserScore[_user];
   }
 
   /**
